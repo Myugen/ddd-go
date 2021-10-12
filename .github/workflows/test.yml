@@ -1,0 +1,11 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build test
+        run: docker-compose -f docker-compose.test.yml build test
+      - name: Test
+        run: docker-compose -f docker-compose.test.yml run test
