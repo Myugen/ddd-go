@@ -25,3 +25,20 @@ FROM scratch as app
 COPY --from=builder /ddd-go/build/app /ddd-go/app
 
 ENTRYPOINT [ "/ddd-go/app" ]
+
+# Generate clean, final image for CI/CD environments
+FROM golang:${GOLANG_VERSION} as test
+
+WORKDIR /ddd-go
+
+COPY go.* ./
+
+ENV CGO_ENABLED=0 \
+    GO111MODULE="on" \
+    GOOS=linux
+
+RUN echo 'Downloading go.mod dependencies' \
+    && go mod download
+
+COPY . .
+ENTRYPOINT go test ./...

@@ -64,3 +64,8 @@ endif
 app: SERVICE=app
 app: up logs
 .PHONY: app
+
+test: DOCKER_COMPOSE_FILE=docker-compose.test.yml
+test: SERVICE=test
+test: run
+.PHONY: test

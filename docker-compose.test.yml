@@ -1,11 +1,11 @@
 version: "3.9"
 services:
-  app:
+  test:
     build:
       context: .
-      target: app
-    image: myugen/ddd-go:latest
-    container_name: tavern-app
+      target: test
+    image: myugen/ddd-go:test
+    container_name: tavern-test
     tty: true
     networks:
       - default-net
