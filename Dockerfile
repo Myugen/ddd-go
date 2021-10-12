@@ -16,7 +16,7 @@ RUN echo 'Downloading go.mod dependencies' \
     && go mod download
 
 COPY . .
-RUN go build -o /ddd-go/build/app .
+RUN go build -o /ddd-go/build/app ./cmd/main.go
 
 
 # Generate clean, final image for end users
