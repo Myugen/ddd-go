@@ -1,4 +1,4 @@
-package ddd_go
+package tavern
 
 import "github.com/google/uuid"
 
