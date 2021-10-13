@@ -24,7 +24,7 @@ type Customer struct {
 	transaction []tavern.Transaction
 }
 
-func (c *Customer) ID() uuid.UUID {
+func (c Customer) ID() uuid.UUID {
 	return c.person.ID
 }
 
@@ -38,7 +38,7 @@ func (c *Customer) WithID(id uuid.UUID) *Customer {
 	return c
 }
 
-func (c *Customer) Name() string {
+func (c Customer) Name() string {
 	return c.person.Name
 }
 
