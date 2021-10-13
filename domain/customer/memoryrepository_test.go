@@ -17,7 +17,7 @@ type MemoryRepositorySuite struct {
 func (s *MemoryRepositorySuite) SetupTest() {
 	john, err := customer.NewCustomer("john")
 	if err != nil {
-		s.Error(err)
+		s.Fail(err.Error())
 	}
 
 	s.customers = customer.NewMemoryRepository(*john)
@@ -62,12 +62,12 @@ func (s *MemoryRepositorySuite) TestGetCustomer() {
 func (s *MemoryRepositorySuite) TestAddCustomer() {
 	jane, err := customer.NewCustomer("jane")
 	if err != nil {
-		s.Error(err)
+		s.Fail(err.Error())
 	}
 
 	jacob, err := customer.NewCustomer("jacob")
 	if err != nil {
-		s.Error(err)
+		s.Fail(err.Error())
 	}
 
 	type testCase struct {
@@ -101,12 +101,12 @@ func (s *MemoryRepositorySuite) TestAddCustomer() {
 func (s *MemoryRepositorySuite) TestUpdateCustomer() {
 	jane, err := customer.NewCustomer("jane")
 	if err != nil {
-		s.Error(err)
+		s.Fail(err.Error())
 	}
 
 	jacob, err := customer.NewCustomer("jacob")
 	if err != nil {
-		s.Error(err)
+		s.Fail(err.Error())
 	}
 
 	type testCase struct {

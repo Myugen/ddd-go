@@ -18,7 +18,7 @@ type MemoryRepositorySuite struct {
 func (s *MemoryRepositorySuite) SetupTest() {
 	beer, err := product.NewProduct("beer", "a pint of beer", 3.95)
 	if err != nil {
-		s.Error(err)
+		s.Fail(err.Error())
 	}
 
 	s.products = product.NewMemoryRepository(*beer)
@@ -100,12 +100,12 @@ func (s *MemoryRepositorySuite) TestGetProduct() {
 func (s *MemoryRepositorySuite) TestAddProduct() {
 	mead, err := product.NewProduct("mead", "a pint of mead", 5.50)
 	if err != nil {
-		s.Error(err)
+		s.Fail(err.Error())
 	}
 
 	wine, err := product.NewProduct("wine", "a glass of wine", 4.50)
 	if err != nil {
-		s.Error(err)
+		s.Fail(err.Error())
 	}
 
 	type testCase struct {
@@ -138,12 +138,12 @@ func (s *MemoryRepositorySuite) TestAddProduct() {
 func (s *MemoryRepositorySuite) TestUpdateProduct() {
 	mead, err := product.NewProduct("mead", "a pint of mead", 5.50)
 	if err != nil {
-		s.Error(err)
+		s.Fail(err.Error())
 	}
 
 	wine, err := product.NewProduct("wine", "a glass of wine", 4.50)
 	if err != nil {
-		s.Error(err)
+		s.Fail(err.Error())
 	}
 
 	type testCase struct {
