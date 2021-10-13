@@ -30,15 +30,15 @@ func (s *CustomerSuite) TestNewCustomer() {
 		},
 	}
 
-	for _, tt := range testCases {
-		s.Run(tt.test, func() {
-			got, err := customer.NewCustomer(tt.name)
+	for _, tc := range testCases {
+		s.Run(tc.test, func() {
+			got, err := customer.NewCustomer(tc.name)
 			if err == nil {
 				s.NotNil(got, "customer exists")
-				s.Equal(got.Name(), tt.name, "customer has correct name")
+				s.Equal(got.Name(), tc.name, "customer has correct name")
 			}
 
-			s.Equal(tt.expectedErr, err, "error validation")
+			s.Equal(tc.expectedErr, err, "error validation")
 		})
 	}
 }

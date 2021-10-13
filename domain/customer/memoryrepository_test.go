@@ -15,13 +15,13 @@ type MemoryRepositorySuite struct {
 }
 
 func (s *MemoryRepositorySuite) SetupTest() {
-	c, err := customer.NewCustomer("john")
+	john, err := customer.NewCustomer("john")
 	if err != nil {
 		s.Error(err)
 	}
 
-	s.customers = customer.NewMemoryRepository(*c)
-	s.existingCustomerID = c.ID()
+	s.customers = customer.NewMemoryRepository(*john)
+	s.existingCustomerID = john.ID()
 }
 
 func (s *MemoryRepositorySuite) TestGetCustomer() {
@@ -45,14 +45,14 @@ func (s *MemoryRepositorySuite) TestGetCustomer() {
 		},
 	}
 
-	for _, tt := range testCases {
-		s.Run(tt.name, func() {
-			got, err := s.customers.Get(tt.id)
+	for _, tc := range testCases {
+		s.Run(tc.name, func() {
+			got, err := s.customers.Get(tc.id)
 			if err == nil {
 				s.NotNil(got, "customer exists")
-				s.Equal(got.ID(), tt.id, "customer has correct id")
+				s.Equal(got.ID(), tc.id, "customer has correct id")
 			} else {
-				s.Equal(tt.expectedErr, err, "error validation")
+				s.Equal(tc.expectedErr, err, "error validation")
 			}
 		})
 	}
@@ -89,11 +89,11 @@ func (s *MemoryRepositorySuite) TestAddCustomer() {
 		},
 	}
 
-	for _, tt := range testCases {
-		s.Run(tt.name, func() {
-			err := s.customers.Add(tt.customer)
+	for _, tc := range testCases {
+		s.Run(tc.name, func() {
+			err := s.customers.Add(tc.customer)
 
-			s.Equal(tt.expectedErr, err, "error on adding new customer")
+			s.Equal(tc.expectedErr, err, "error on adding new customer")
 		})
 	}
 }
@@ -128,11 +128,11 @@ func (s *MemoryRepositorySuite) TestUpdateCustomer() {
 		},
 	}
 
-	for _, tt := range testCases {
-		s.Run(tt.name, func() {
-			err := s.customers.Update(tt.customer)
+	for _, tc := range testCases {
+		s.Run(tc.name, func() {
+			err := s.customers.Update(tc.customer)
 
-			s.Equal(tt.expectedErr, err, "error on adding new customer")
+			s.Equal(tc.expectedErr, err, "error on adding new customer")
 		})
 	}
 }
