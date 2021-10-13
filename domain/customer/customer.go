@@ -25,10 +25,6 @@ type Customer struct {
 }
 
 func (c *Customer) ID() uuid.UUID {
-	if c.person == nil {
-		c.person = &tavern.Person{}
-	}
-
 	return c.person.ID
 }
 
@@ -43,10 +39,6 @@ func (c *Customer) WithID(id uuid.UUID) *Customer {
 }
 
 func (c *Customer) Name() string {
-	if c.person == nil {
-		c.person = &tavern.Person{}
-	}
-
 	return c.person.Name
 }
 

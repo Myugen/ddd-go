@@ -3,12 +3,15 @@ package customer_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/myugen/ddd-go/domain/customer"
+	"github.com/stretchr/testify/suite"
 )
 
-func TestNewCustomer(t *testing.T) {
+type CustomerSuite struct {
+	suite.Suite
+}
+
+func (s *CustomerSuite) TestNewCustomer() {
 	type testCase struct {
 		test        string
 		name        string
@@ -28,14 +31,18 @@ func TestNewCustomer(t *testing.T) {
 	}
 
 	for _, tt := range testCases {
-		t.Run(tt.test, func(t *testing.T) {
+		s.Run(tt.test, func() {
 			got, err := customer.NewCustomer(tt.name)
 			if err == nil {
-				assert.NotNil(t, got, "customer exists")
-				assert.Equal(t, got.Name(), tt.name, "customer has correct name")
-			} else {
-				assert.Equal(t, tt.expectedErr, err, "error validation")
+				s.NotNil(got, "customer exists")
+				s.Equal(got.Name(), tt.name, "customer has correct name")
 			}
+
+			s.Equal(tt.expectedErr, err, "error validation")
 		})
 	}
+}
+
+func TestCustomerTestSuite(t *testing.T) {
+	suite.Run(t, new(CustomerSuite))
 }
