@@ -24,9 +24,45 @@ type Customer struct {
 	transaction []tavern.Transaction
 }
 
-func NewCustomer(name string) (Customer, error) {
+func (c *Customer) ID() uuid.UUID {
+	if c.person == nil {
+		c.person = &tavern.Person{}
+	}
+
+	return c.person.ID
+}
+
+func (c *Customer) WithID(id uuid.UUID) *Customer {
+	if c.person == nil {
+		c.person = &tavern.Person{}
+	}
+
+	c.person.ID = id
+
+	return c
+}
+
+func (c *Customer) Name() string {
+	if c.person == nil {
+		c.person = &tavern.Person{}
+	}
+
+	return c.person.Name
+}
+
+func (c *Customer) WithName(name string) *Customer {
+	if c.person == nil {
+		c.person = &tavern.Person{}
+	}
+
+	c.person.Name = name
+
+	return c
+}
+
+func NewCustomer(name string) (*Customer, error) {
 	if name == "" {
-		return Customer{}, ErrInvalidPerson
+		return nil, ErrInvalidPerson
 	}
 
 	person := &tavern.Person{
@@ -34,9 +70,10 @@ func NewCustomer(name string) (Customer, error) {
 		Name: name,
 	}
 
-	return Customer{
+	customer := &Customer{
 		person:      person,
 		products:    make([]*tavern.Item, 0),
 		transaction: make([]tavern.Transaction, 0),
-	}, nil
+	}
+	return customer, nil
 }

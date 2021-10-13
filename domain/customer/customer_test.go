@@ -29,8 +29,13 @@ func TestNewCustomer(t *testing.T) {
 
 	for _, tt := range testCases {
 		t.Run(tt.test, func(t *testing.T) {
-			_, err := customer.NewCustomer(tt.name)
-			assert.Equal(t, tt.expectedErr, err, "error validation")
+			got, err := customer.NewCustomer(tt.name)
+			if err == nil {
+				assert.NotNil(t, got, "customer exists")
+				assert.Equal(t, got.Name(), tt.name, "customer has correct name")
+			} else {
+				assert.Equal(t, tt.expectedErr, err, "error validation")
+			}
 		})
 	}
 }
