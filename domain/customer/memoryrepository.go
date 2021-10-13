@@ -41,8 +41,13 @@ func (r *memoryRepository) save(customer *Customer) error {
 	return nil
 }
 
-func NewMemoryRepository() *memoryRepository {
+func NewMemoryRepository(dump ...Customer) *memoryRepository {
+	customers := make(map[uuid.UUID]Customer)
+	for _, customer := range dump {
+		customers[customer.ID()] = customer
+	}
+
 	return &memoryRepository{
-		customers: make(map[uuid.UUID]Customer),
+		customers: customers,
 	}
 }
