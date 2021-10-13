@@ -10,7 +10,7 @@ import (
 
 type MemoryRepositorySuite struct {
 	suite.Suite
-	repository         customer.CustomerRepository
+	customers          customer.Repository
 	existingCustomerID uuid.UUID
 }
 
@@ -20,7 +20,7 @@ func (s *MemoryRepositorySuite) SetupTest() {
 		s.Error(err)
 	}
 
-	s.repository = customer.NewMemoryRepository(*c)
+	s.customers = customer.NewMemoryRepository(*c)
 	s.existingCustomerID = c.ID()
 }
 
@@ -47,7 +47,7 @@ func (s *MemoryRepositorySuite) TestGetCustomer() {
 
 	for _, tt := range testCases {
 		s.Run(tt.name, func() {
-			got, err := s.repository.Get(tt.id)
+			got, err := s.customers.Get(tt.id)
 			if err == nil {
 				s.NotNil(got, "customer exists")
 				s.Equal(got.ID(), tt.id, "customer has correct id")
@@ -91,7 +91,7 @@ func (s *MemoryRepositorySuite) TestAddCustomer() {
 
 	for _, tt := range testCases {
 		s.Run(tt.name, func() {
-			err := s.repository.Add(tt.customer)
+			err := s.customers.Add(tt.customer)
 
 			s.Equal(tt.expectedErr, err, "error on adding new customer")
 		})
@@ -130,7 +130,7 @@ func (s *MemoryRepositorySuite) TestUpdateCustomer() {
 
 	for _, tt := range testCases {
 		s.Run(tt.name, func() {
-			err := s.repository.Update(tt.customer)
+			err := s.customers.Update(tt.customer)
 
 			s.Equal(tt.expectedErr, err, "error on adding new customer")
 		})
